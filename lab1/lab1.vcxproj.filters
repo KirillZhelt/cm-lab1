@@ -31,6 +31,9 @@
     <Filter Include="Source Files\cholesky-task5">
       <UniqueIdentifier>{21f05ae0-4f56-41e0-99df-e5941744ede8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\relaxation-task6">
+      <UniqueIdentifier>{302cc6d9-a0c3-4b73-9621-9ca57c325c4a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Matrix.h">
@@ -54,6 +57,9 @@
     <ClInclude Include="cholesky.h">
       <Filter>Source Files\cholesky-task5</Filter>
     </ClInclude>
+    <ClInclude Include="relaxation.h">
+      <Filter>Source Files\relaxation-task6</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -76,6 +82,9 @@
     </ClCompile>
     <ClCompile Include="cholesky.cpp">
       <Filter>Source Files\cholesky-task5</Filter>
+    </ClCompile>
+    <ClCompile Include="relaxation.cpp">
+      <Filter>Source Files\relaxation-task6</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

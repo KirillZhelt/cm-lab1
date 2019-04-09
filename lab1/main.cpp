@@ -10,10 +10,11 @@
 #include "gauss.h" // task3
 #include "lup.h" // task4
 #include "cholesky.h" // task5
+#include "relaxation.h" // task6
 
 using namespace std;
 
-const int N = 16;
+const int N = 4;
 
 const int ROWS = 256;
 const int COLUMNS = 256;
@@ -96,6 +97,17 @@ int main() {
 	cout << "cholesky max norm: " << MaxNorm(difference_cholesky, COLUMNS) << endl;
 
 	// TASK 6 (Relaxation)
+	double* x_relaxation = new double[COLUMNS];
+	SolveRelaxation(A, ROWS, COLUMNS, b, (N + 1) / 6.0, x_relaxation);
+
+	double* difference_relaxation = new double[COLUMNS];
+
+	Subtract(y, x_relaxation, COLUMNS, difference_relaxation);
+	cout << "relaxation max norm: " << MaxNorm(difference_relaxation, COLUMNS) << endl;
+
+	delete[] difference_relaxation;
+
+	delete[] x_relaxation;
 
 	delete[] difference_cholesky;
 

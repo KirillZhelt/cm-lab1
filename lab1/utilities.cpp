@@ -69,3 +69,14 @@ void CopyMatrix(double** src, double** dst, int rows, int columns) {
 void CopyVector(double* src, double* dst, int length) {
 	memcpy(dst, src, length * sizeof(double));
 }
+
+void Multiply(double** m, int rows, int columns,
+	double* v, int length, double* b) {
+
+	for (int i = 0; i < rows; i++) {
+		b[i] = 0;
+
+		for (int j = 0; j < columns; j++)
+			b[i] += m[i][j] * v[j];
+	}
+}

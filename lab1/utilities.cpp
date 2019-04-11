@@ -45,6 +45,15 @@ double MaxNorm(double* v, int length) {
 	return max;
 }
 
+double EuclideanNorm(double* v, int length) {
+	double result = 0;
+
+	for (int i = 0; i < length; i++)
+		result += v[i] * v[i];
+
+	return sqrt(result);
+}
+
 void PrintMatrix(double** m, int rows, int columns) {
 	for (int i = 0; i < rows; i++) {
 		for (int j = 0; j < columns; j++)

@@ -10,6 +10,8 @@ void Rearrange(double* v, int* p, int length);
 
 double MaxNorm(double* v, int length);
 
+double EuclideanNorm(double* v, int length);
+
 void PrintMatrix(double** m, int rows, int columns);
 
 void PrintVector(double* v, int length);

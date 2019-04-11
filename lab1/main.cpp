@@ -111,7 +111,7 @@ int main() {
 	double* x_least_squares = new double[N * 20];
 	SolveLeastSquares(A, ROWS, N * 20, b, x_least_squares);
 
-
+	cout << "euclidean norm for least squares method: " << EuclideanNorm(x_least_squares, N * 20) << endl;
 
 	delete[] x_least_squares;
 

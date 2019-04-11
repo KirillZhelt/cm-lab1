@@ -107,6 +107,10 @@ int main() {
 	Subtract(y, x_relaxation, COLUMNS, difference_relaxation);
 	cout << "relaxation max norm: " << MaxNorm(difference_relaxation, COLUMNS) << endl;
 
+	// TASK 7 (Least Squares)
+	double* x_least_squares = nullptr;
+	SolveLeastSquares(A, ROWS, 4, b, x_least_squares);
+
 	delete[] difference_relaxation;
 
 	delete[] x_relaxation;

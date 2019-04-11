@@ -108,8 +108,12 @@ int main() {
 	cout << "relaxation max norm: " << MaxNorm(difference_relaxation, COLUMNS) << endl;
 
 	// TASK 7 (Least Squares)
-	double* x_least_squares = nullptr;
-	SolveLeastSquares(A, ROWS, 4, b, x_least_squares);
+	double* x_least_squares = new double[N * 20];
+	SolveLeastSquares(A, ROWS, N * 20, b, x_least_squares);
+
+
+
+	delete[] x_least_squares;
 
 	delete[] difference_relaxation;
 

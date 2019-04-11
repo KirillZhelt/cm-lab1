@@ -1,5 +1,6 @@
 #include "utilities.h"
 #include "least_squares.h"
+#include "gauss.h"
 
 #include <iostream>
 
@@ -20,7 +21,18 @@ void SolveLeastSquares(double** m, int rows, int columns, double* v, double* x) 
 		}
 	}
 
-	
+	double* b = new double[columns];
+
+	for (int i = 0; i < columns; i++) {
+		b[i] = 0;
+
+		for (int k = 0; k < rows; k++)
+			b[i] += v[k] * m[k][i];
+	}
+
+	Gauss(mtm, columns, columns, b, x);
+
+	delete[] b;
 
 	for (int i = 0; i < columns; i++)
 		delete[] mtm[i];

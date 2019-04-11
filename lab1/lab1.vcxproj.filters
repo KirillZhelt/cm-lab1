@@ -34,6 +34,9 @@
     <Filter Include="Source Files\relaxation-task6">
       <UniqueIdentifier>{302cc6d9-a0c3-4b73-9621-9ca57c325c4a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\least-squares-task8">
+      <UniqueIdentifier>{3dfb55c4-a484-4c1a-8856-a3e3b3d00de3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Matrix.h">
@@ -60,6 +63,9 @@
     <ClInclude Include="relaxation.h">
       <Filter>Source Files\relaxation-task6</Filter>
     </ClInclude>
+    <ClInclude Include="least_squares.h">
+      <Filter>Source Files\least-squares-task8</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -85,6 +91,9 @@
     </ClCompile>
     <ClCompile Include="relaxation.cpp">
       <Filter>Source Files\relaxation-task6</Filter>
+    </ClCompile>
+    <ClCompile Include="least_squares.cpp">
+      <Filter>Source Files\least-squares-task8</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

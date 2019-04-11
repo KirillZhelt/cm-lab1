@@ -12,6 +12,8 @@
 #include "cholesky.h" // task5
 #include "relaxation.h" // task6
 
+#include "least_squares.h" // task8
+
 using namespace std;
 
 const int N = 4;

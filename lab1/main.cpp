@@ -136,7 +136,7 @@ int main() {
 	Subtract(Ax, b, ROWS, discrepancy);
 	 
 	cout << "euclidean norm for least squares method: " << EuclideanNorm(discrepancy, ROWS) << endl;
-
+	
 	delete[] discrepancy;
 	delete[] Ax;
 

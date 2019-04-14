@@ -122,6 +122,7 @@
     <ClCompile Include="least_squares.cpp" />
     <ClCompile Include="lup.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="qr.cpp" />
     <ClCompile Include="relaxation.cpp" />
     <ClCompile Include="utilities.cpp" />
   </ItemGroup>
@@ -133,6 +134,7 @@
     <ClInclude Include="least_squares.h" />
     <ClInclude Include="lup.h" />
     <ClInclude Include="Matrix.h" />
+    <ClInclude Include="qr.h" />
     <ClInclude Include="relaxation.h" />
     <ClInclude Include="utilities.h" />
   </ItemGroup>

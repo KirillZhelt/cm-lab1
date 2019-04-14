@@ -37,6 +37,9 @@
     <Filter Include="Source Files\least-squares-task8">
       <UniqueIdentifier>{3dfb55c4-a484-4c1a-8856-a3e3b3d00de3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\qr-task7">
+      <UniqueIdentifier>{2bb46f1b-cde6-4aab-a371-7e8be4909166}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Matrix.h">
@@ -66,6 +69,9 @@
     <ClInclude Include="least_squares.h">
       <Filter>Source Files\least-squares-task8</Filter>
     </ClInclude>
+    <ClInclude Include="qr.h">
+      <Filter>Source Files\qr-task7</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -94,6 +100,9 @@
     </ClCompile>
     <ClCompile Include="least_squares.cpp">
       <Filter>Source Files\least-squares-task8</Filter>
+    </ClCompile>
+    <ClCompile Include="qr.cpp">
+      <Filter>Source Files\qr-task7</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -10,6 +10,8 @@ void Rearrange(double* v, int* p, int length);
 
 double MaxNorm(double* v, int length);
 
+double EuclideanNorm(double* v, int length);
+
 void PrintMatrix(double** m, int rows, int columns);
 
 void PrintVector(double* v, int length);
@@ -17,3 +19,6 @@ void PrintVector(double* v, int length);
 void CopyMatrix(double** src, double** dst, int rows, int columns);
 
 void CopyVector(double* src, double* dst, int length);
+
+void Multiply(double** m, int rows, int columns,
+	double* v, int length, double* b);

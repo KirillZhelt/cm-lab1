@@ -12,6 +12,8 @@
 #include "cholesky.h" // task5
 #include "relaxation.h" // task6
 
+#include "least_squares.h" // task8
+
 using namespace std;
 
 const int N = 4;
@@ -104,6 +106,23 @@ int main() {
 
 	Subtract(y, x_relaxation, COLUMNS, difference_relaxation);
 	cout << "relaxation max norm: " << MaxNorm(difference_relaxation, COLUMNS) << endl;
+
+	// TASK 7 (Least Squares)
+	double* x_least_squares = new double[20 * N];
+	SolveLeastSquares(A, ROWS, 20 * N, b, x_least_squares);
+
+	double* Ax = new double[ROWS];
+	Multiply(A, ROWS, 20 * N, x_least_squares, 20 * N, Ax);
+
+	double* discrepancy = new double[ROWS];
+	Subtract(Ax, b, ROWS, discrepancy);
+	 
+	cout << "euclidean norm for least squares method: " << EuclideanNorm(discrepancy, ROWS) << endl;
+
+	delete[] discrepancy;
+	delete[] Ax;
+
+	delete[] x_least_squares;
 
 	delete[] difference_relaxation;
 

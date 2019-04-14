@@ -45,6 +45,15 @@ double MaxNorm(double* v, int length) {
 	return max;
 }
 
+double EuclideanNorm(double* v, int length) {
+	double result = 0;
+
+	for (int i = 0; i < length; i++)
+		result += v[i] * v[i];
+
+	return sqrt(result);
+}
+
 void PrintMatrix(double** m, int rows, int columns) {
 	for (int i = 0; i < rows; i++) {
 		for (int j = 0; j < columns; j++)
@@ -68,4 +77,15 @@ void CopyMatrix(double** src, double** dst, int rows, int columns) {
 
 void CopyVector(double* src, double* dst, int length) {
 	memcpy(dst, src, length * sizeof(double));
+}
+
+void Multiply(double** m, int rows, int columns,
+	double* v, int length, double* b) {
+
+	for (int i = 0; i < rows; i++) {
+		b[i] = 0;
+
+		for (int j = 0; j < columns; j++)
+			b[i] += m[i][j] * v[j];
+	}
 }

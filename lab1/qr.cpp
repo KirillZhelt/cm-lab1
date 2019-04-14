@@ -6,7 +6,7 @@
 using namespace std;
 
 int Sign(double d) {
-	return (d < 0) ? -1 : 1;
+	return (d >= 0) - (d < 0);
 }
 
 void BuildQR(double** m, int rows, int columns, double** qr, double* diag_r) {
@@ -23,11 +23,11 @@ void BuildQR(double** m, int rows, int columns, double** qr, double* diag_r) {
 				1c) для каждого следующего столбца
 					1c-a)  new_a[i] = a[i] - 2 * (a[i], w) * w
 		*/
-		//diag_r[i] =
+		diag_r[i] = Sign(qr[i][i]) * EuclideanNorm(&qr[i][i], rows - i);
 
 	}
 }
 
 void SolveQR(double** qr, double* diag_r, int rows, int columns, double* v, double* x) {
-
+	cout << endl << Sign(0.5) << endl;
 }

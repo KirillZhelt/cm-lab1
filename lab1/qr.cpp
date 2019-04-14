@@ -9,7 +9,15 @@ int Sign(double d) {
 	return (d >= 0) - (d < 0);
 }
 
+void Transpose(double** m, int rows, int columns) {
+	for (int i = 0; i < rows; i++) {
+		for (int j = i + 1; j < columns; j++)
+			swap(m[i][j], m[j][i]);
+	}
+}
+
 void BuildQR(double** m, int rows, int columns, double** qr, double* diag_r) {
+	// copy transpose
 	for (int i = 0; i < rows; i++) {
 		for (int j = 0; j < columns; j++)
 			qr[i][j] = m[j][i];
@@ -25,9 +33,15 @@ void BuildQR(double** m, int rows, int columns, double** qr, double* diag_r) {
 		*/
 		diag_r[i] = Sign(qr[i][i]) * EuclideanNorm(&qr[i][i], rows - i);
 
+		qr[i][i] -= diag_r[i];
+		double norm = EuclideanNorm(&qr[i][i], rows - i);
+		qr[i][i] /= norm; // wi
+
+
 	}
+
+	Transpose(qr, rows, columns); // ? maybe return transposed qr
 }
 
 void SolveQR(double** qr, double* diag_r, int rows, int columns, double* v, double* x) {
-	cout << endl << Sign(0.5) << endl;
 }

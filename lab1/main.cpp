@@ -109,15 +109,16 @@ int main() {
 	
 	// TASK 7 (QR)
 	double** qr = new double*[ROWS];
+	double* diag_r = new double[ROWS];
 
 	for (int i = 0; i < ROWS; i++)
 		qr[i] = new double[COLUMNS];
 
-	BuildQR(A, ROWS, COLUMNS, qr);
+	BuildQR(A, ROWS, COLUMNS, qr, diag_r);
 
 	double* x_qr = new double[COLUMNS];
 
-	SolveQR(qr, ROWS, COLUMNS, b, x_qr);
+	SolveQR(qr, diag_r, ROWS, COLUMNS, b, x_qr);
 
 	double* difference_qr = new double[COLUMNS];
 
@@ -141,6 +142,8 @@ int main() {
 
 	delete[] difference_qr;
 	delete[] x_qr;
+
+	delete[] diag_r;
 
 	for (int i = 0; i < ROWS; i++)
 		delete[] qr[i];

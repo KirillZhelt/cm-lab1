@@ -12,6 +12,8 @@ double MaxNorm(double* v, int length);
 
 double EuclideanNorm(double* v, int length);
 
+double ScalarMultiply(double* v1, double* v2, int length);
+
 void PrintMatrix(double** m, int rows, int columns);
 
 void PrintVector(double* v, int length);

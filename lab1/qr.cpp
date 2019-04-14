@@ -35,9 +35,13 @@ void BuildQR(double** m, int rows, int columns, double** qr, double* diag_r) {
 
 		qr[i][i] -= diag_r[i];
 		double norm = EuclideanNorm(&qr[i][i], rows - i);
-		qr[i][i] /= norm; // wi
 
+		for (int j = i; j < rows; j++) // wi
+			qr[i][j] /= norm; 
 
+		for (int j = i + 1; j < rows; j++) {
+
+		}
 	}
 
 	Transpose(qr, rows, columns); // ? maybe return transposed qr

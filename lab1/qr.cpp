@@ -40,7 +40,10 @@ void BuildQR(double** m, int rows, int columns, double** qr, double* diag_r) {
 			qr[i][j] /= norm; 
 
 		for (int j = i + 1; j < rows; j++) {
+			double scalar_multiply_result = ScalarMultiply(&qr[j][i], &qr[i][i], rows - i);
 
+			for (int k = i; k < rows; k++)
+				qr[j][k] -= 2 * scalar_multiply_result * qr[i][k];
 		}
 	}
 

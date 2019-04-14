@@ -108,10 +108,19 @@ int main() {
 	cout << "relaxation max norm: " << MaxNorm(difference_relaxation, COLUMNS) << endl;
 
 	// TASK 7 (Least Squares)
-	double* x_least_squares = new double[N * 20];
-	SolveLeastSquares(A, ROWS, N * 20, b, x_least_squares);
+	double* x_least_squares = new double[20 * N];
+	SolveLeastSquares(A, ROWS, 20 * N, b, x_least_squares);
 
-	cout << "euclidean norm for least squares method: " << EuclideanNorm(x_least_squares, N * 20) << endl;
+	double* Ax = new double[ROWS];
+	Multiply(A, ROWS, 20 * N, x_least_squares, 20 * N, Ax);
+
+	double* discrepancy = new double[ROWS];
+	Subtract(Ax, b, ROWS, discrepancy);
+	 
+	cout << "euclidean norm for least squares method: " << EuclideanNorm(discrepancy, ROWS) << endl;
+
+	delete[] discrepancy;
+	delete[] Ax;
 
 	delete[] x_least_squares;
 

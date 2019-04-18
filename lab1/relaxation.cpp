@@ -23,7 +23,7 @@ void SolveRelaxation(double** m, int rows, int columns, double* v, double w, dou
 		}
 
 		Subtract(x, x_prev, rows, difference);
-		if (MaxNorm(difference, rows) < EPS)
+		if (EuclideanNorm(difference, rows) < EPS)
 			break;
 	}
 

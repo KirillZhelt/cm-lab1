@@ -11,7 +11,7 @@
 #include "lup.h" // task4
 #include "cholesky.h" // task5
 #include "relaxation.h" // task6
-
+#include "qr.h" // task7
 #include "least_squares.h" // task8
 
 using namespace std;
@@ -31,7 +31,7 @@ int main() {
 		A[i] = new double[COLUMNS];
 
 	Fill(A, ROWS, COLUMNS, N);
-
+	
 	double* y = new double[COLUMNS];
 
 	Fill(y, COLUMNS, N);
@@ -106,8 +106,26 @@ int main() {
 
 	Subtract(y, x_relaxation, COLUMNS, difference_relaxation);
 	cout << "relaxation max norm: " << MaxNorm(difference_relaxation, COLUMNS) << endl;
+	
+	// TASK 7 (QR)
+	double** qr = new double*[ROWS];
+	double* diag_r = new double[ROWS];
 
-	// TASK 7 (Least Squares)
+	for (int i = 0; i < ROWS; i++)
+		qr[i] = new double[COLUMNS];
+
+	BuildQR(A, ROWS, COLUMNS, qr, diag_r);
+
+	double* x_qr = new double[COLUMNS];
+
+	SolveQR(qr, diag_r, ROWS, COLUMNS, b, x_qr);
+
+	double* difference_qr = new double[COLUMNS];
+
+	Subtract(y, x_qr, COLUMNS, difference_qr);
+	cout << "qr max norm: " << MaxNorm(difference_qr, COLUMNS) << endl;
+
+	// TASK 8 (Least Squares)
 	double* x_least_squares = new double[20 * N];
 	SolveLeastSquares(A, ROWS, 20 * N, b, x_least_squares);
 
@@ -118,9 +136,19 @@ int main() {
 	Subtract(Ax, b, ROWS, discrepancy);
 	 
 	cout << "euclidean norm for least squares method: " << EuclideanNorm(discrepancy, ROWS) << endl;
-
+	
 	delete[] discrepancy;
 	delete[] Ax;
+
+	delete[] difference_qr;
+	delete[] x_qr;
+
+	delete[] diag_r;
+
+	for (int i = 0; i < ROWS; i++)
+		delete[] qr[i];
+
+	delete[] qr;
 
 	delete[] x_least_squares;
 

@@ -31,7 +31,7 @@ int main() {
 		A[i] = new double[COLUMNS];
 
 	Fill(A, ROWS, COLUMNS, N);
-
+	
 	double* y = new double[COLUMNS];
 
 	Fill(y, COLUMNS, N);

@@ -46,7 +46,7 @@ double MaxNorm(double* v, int length) {
 }
 
 double EuclideanNorm(double* v, int length) {
-	return ScalarMultiply(v, v, length);
+	return sqrt(ScalarMultiply(v, v, length));
 }
 
 double ScalarMultiply(double* v1, double* v2, int length) {
@@ -55,7 +55,7 @@ double ScalarMultiply(double* v1, double* v2, int length) {
 	for (int i = 0; i < length; i++)
 		result += v1[i] * v2[i];
 
-	return sqrt(result);
+	return result;
 }
 
 

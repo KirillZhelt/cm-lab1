@@ -6,14 +6,14 @@
 
 using namespace std;
 
-void SolveLeastSquares(double** m, int rows, int columns, double* v, double* x) {
+void SolveLeastSquares(double** m, int rows, int columns, double* v, double* x, int start_column) {
 	double** mtm = new double*[columns];
 
 	for (int i = 0; i < columns; i++)
 		mtm[i] = new double[columns];
 
 	for (int i = 0; i < columns; i++) {
-		for (int j = 0; j < columns; j++) {
+		for (int j = start_column; j < columns; j++) {
 			mtm[i][j] = 0;
 
 			for (int k = 0; k < rows; k++)

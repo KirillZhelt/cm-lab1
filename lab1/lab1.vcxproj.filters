@@ -40,6 +40,9 @@
     <Filter Include="Source Files\qr-task7">
       <UniqueIdentifier>{2bb46f1b-cde6-4aab-a371-7e8be4909166}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\gmres-task9">
+      <UniqueIdentifier>{7fda97bb-7edf-49e8-91c7-b3b80ae19895}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Matrix.h">
@@ -72,6 +75,9 @@
     <ClInclude Include="qr.h">
       <Filter>Source Files\qr-task7</Filter>
     </ClInclude>
+    <ClInclude Include="gmres.h">
+      <Filter>Source Files\gmres-task9</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -103,6 +109,9 @@
     </ClCompile>
     <ClCompile Include="qr.cpp">
       <Filter>Source Files\qr-task7</Filter>
+    </ClCompile>
+    <ClCompile Include="gmres.cpp">
+      <Filter>Source Files\gmres-task9</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

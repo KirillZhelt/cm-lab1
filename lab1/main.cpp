@@ -13,6 +13,7 @@
 #include "relaxation.h" // task6
 #include "qr.h" // task7
 #include "least_squares.h" // task8
+#include "gmres.h" // task9
 
 using namespace std;
 
@@ -125,6 +126,7 @@ int main() {
 	Subtract(y, x_qr, COLUMNS, difference_qr);
 	cout << "qr max norm: " << MaxNorm(difference_qr, COLUMNS) << endl;
 
+	/*
 	// TASK 8 (Least Squares)
 	double* x_least_squares = new double[20 * N];
 	SolveLeastSquares(A, ROWS, 20 * N, b, x_least_squares);
@@ -136,9 +138,22 @@ int main() {
 	Subtract(Ax, b, ROWS, discrepancy);
 	 
 	cout << "euclidean norm for least squares method: " << EuclideanNorm(discrepancy, ROWS) << endl;
-	
-	delete[] discrepancy;
-	delete[] Ax;
+	*/
+
+	// TASK 9 (GMRES)
+	double* x_gmres = new double[COLUMNS];
+	SolveGMRES(A, ROWS, COLUMNS, b, x_gmres);
+
+	double* difference_gmres = new double[COLUMNS];
+
+	Subtract(y, x_gmres, COLUMNS, difference_gmres);
+	cout << "gmres max norm: " << MaxNorm(difference_gmres, COLUMNS) << endl;
+
+	delete[] difference_gmres;
+	delete[] x_gmres;
+
+	//delete[] discrepancy;
+	//delete[] Ax;
 
 	delete[] difference_qr;
 	delete[] x_qr;
@@ -150,7 +165,7 @@ int main() {
 
 	delete[] qr;
 
-	delete[] x_least_squares;
+	//delete[] x_least_squares;
 
 	delete[] difference_relaxation;
 

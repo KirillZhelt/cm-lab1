@@ -119,6 +119,7 @@
     <ClCompile Include="condition_number.cpp" />
     <ClCompile Include="fill.cpp" />
     <ClCompile Include="gauss.cpp" />
+    <ClCompile Include="gmres.cpp" />
     <ClCompile Include="least_squares.cpp" />
     <ClCompile Include="lup.cpp" />
     <ClCompile Include="main.cpp" />
@@ -131,6 +132,7 @@
     <ClInclude Include="condition_number.h" />
     <ClInclude Include="fill.h" />
     <ClInclude Include="gauss.h" />
+    <ClInclude Include="gmres.h" />
     <ClInclude Include="least_squares.h" />
     <ClInclude Include="lup.h" />
     <ClInclude Include="Matrix.h" />

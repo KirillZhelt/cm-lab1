@@ -13,11 +13,11 @@ void SolveLeastSquares(double** m, int rows, int columns, double* v, double* x, 
 		mtm[i] = new double[columns];
 
 	for (int i = 0; i < columns; i++) {
-		for (int j = start_column; j < columns; j++) {
-			mtm[i][j] = 0;
+		for (int j = start_column; j < columns + start_column; j++) {
+			mtm[i][j - start_column] = 0;
 
 			for (int k = 0; k < rows; k++)
-				mtm[i][j] += m[k][j] * m[k][i];
+				mtm[i][j - start_column] += m[k][j] * m[k][i];
 		}
 	}
 

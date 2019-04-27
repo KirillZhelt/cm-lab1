@@ -120,6 +120,7 @@
     <ClCompile Include="fill.cpp" />
     <ClCompile Include="gauss.cpp" />
     <ClCompile Include="gmres.cpp" />
+    <ClCompile Include="gmres_arnoldi.cpp" />
     <ClCompile Include="least_squares.cpp" />
     <ClCompile Include="lup.cpp" />
     <ClCompile Include="main.cpp" />
@@ -133,6 +134,7 @@
     <ClInclude Include="fill.h" />
     <ClInclude Include="gauss.h" />
     <ClInclude Include="gmres.h" />
+    <ClInclude Include="gmres_arnoldi.h" />
     <ClInclude Include="least_squares.h" />
     <ClInclude Include="lup.h" />
     <ClInclude Include="Matrix.h" />

@@ -30,7 +30,7 @@ void SolveLeastSquares(double** m, int rows, int columns, double* v, double* x, 
 			b[i] += v[k] * m[k][i];
 	}
 
-	Gauss(mtm, columns, columns, b, x);
+	SolveGauss(mtm, columns, columns, b, x);
 
 	delete[] b;
 

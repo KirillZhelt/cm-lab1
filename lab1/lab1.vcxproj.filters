@@ -43,6 +43,9 @@
     <Filter Include="Source Files\gmres-task9">
       <UniqueIdentifier>{7fda97bb-7edf-49e8-91c7-b3b80ae19895}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\gmres-arnoldi-task10">
+      <UniqueIdentifier>{3e0f719f-284f-46e7-9bff-4beea566e431}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Matrix.h">
@@ -78,6 +81,9 @@
     <ClInclude Include="gmres.h">
       <Filter>Source Files\gmres-task9</Filter>
     </ClInclude>
+    <ClInclude Include="gmres_arnoldi.h">
+      <Filter>Source Files\gmres-arnoldi-task10</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -112,6 +118,9 @@
     </ClCompile>
     <ClCompile Include="gmres.cpp">
       <Filter>Source Files\gmres-task9</Filter>
+    </ClCompile>
+    <ClCompile Include="gmres_arnoldi.cpp">
+      <Filter>Source Files\gmres-arnoldi-task10</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

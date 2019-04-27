@@ -14,6 +14,7 @@
 #include "qr.h" // task7
 #include "least_squares.h" // task8
 #include "gmres.h" // task9
+#include "gmres_arnoldi.h" // task10
 
 using namespace std;
 
@@ -126,7 +127,7 @@ int main() {
 	Subtract(y, x_qr, COLUMNS, difference_qr);
 	cout << "qr max norm: " << MaxNorm(difference_qr, COLUMNS) << endl;
 
-	/*
+	
 	// TASK 8 (Least Squares)
 	double* x_least_squares = new double[20 * N];
 	SolveLeastSquares(A, ROWS, 20 * N, b, x_least_squares);
@@ -138,7 +139,6 @@ int main() {
 	Subtract(Ax, b, ROWS, discrepancy);
 	 
 	cout << "euclidean norm for least squares method: " << EuclideanNorm(discrepancy, ROWS) << endl;
-	*/
 
 	// TASK 9 (GMRES)
 	double* x_gmres = new double[COLUMNS];
@@ -149,11 +149,23 @@ int main() {
 	Subtract(y, x_gmres, COLUMNS, difference_gmres);
 	cout << "gmres max norm: " << MaxNorm(difference_gmres, COLUMNS) << endl;
 
+	// TASK 10 (GMRES Arnoldi)
+	double* x_gmres_arnoldi = new double[COLUMNS];
+	SolveGMRESArnoldi(A, ROWS, COLUMNS, b, x_gmres_arnoldi);
+
+	double* difference_gmres_arnoldi = new double[COLUMNS];
+
+	Subtract(y, x_gmres_arnoldi, COLUMNS, difference_gmres_arnoldi);
+	cout << "gmres arnoldi max norm: " << MaxNorm(difference_gmres_arnoldi, COLUMNS) << endl;
+
+	delete[] difference_gmres_arnoldi;
+	delete[] x_gmres_arnoldi;
+
 	delete[] difference_gmres;
 	delete[] x_gmres;
 
-	//delete[] discrepancy;
-	//delete[] Ax;
+	delete[] discrepancy;
+	delete[] Ax;
 
 	delete[] difference_qr;
 	delete[] x_qr;
@@ -165,7 +177,7 @@ int main() {
 
 	delete[] qr;
 
-	//delete[] x_least_squares;
+	delete[] x_least_squares;
 
 	delete[] difference_relaxation;
 

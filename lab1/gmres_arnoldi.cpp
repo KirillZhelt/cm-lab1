@@ -12,7 +12,11 @@ void SolveGMRESArnoldi(double** m, int rows, int columns, double* v, double* x) 
 
 	double* difference = new double[columns];
 
-	int k = 0;
+	double b_norm = EuclideanNorm(v, rows);
+
+	int k = 1;
+	for (int i = 0; i < rows; i++)
+		Q[i][0] = v[i] / b_norm; // q1
 
 	while (true) {
 		// TODO: generate qk

@@ -45,6 +45,8 @@ void GaussJordanInverse(double** m, int rows, int columns, double** inverse) {
 		   такое практически невозможно, следовательно деления на ноль не должно произойти
 
 		   запустил раз 10 матрицу 256х256 не было ни одного свапа при выборе главного элемента по столбцу
+		*/
+
 		double max = a[k][k];
 		int max_row = k;
 		for (int j = k + 1; j < rows; j++) {
@@ -55,7 +57,6 @@ void GaussJordanInverse(double** m, int rows, int columns, double** inverse) {
 		}
 		
 		SwapRows(a, max_row, k);
-		*/
 
 		for (int i = k + 1; i < rows; i++) {
 			auto l = a[i][k] / a[k][k];

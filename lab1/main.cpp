@@ -2,6 +2,9 @@
 #include <cmath>
 #include <random>
 #include <iomanip>
+#include <fstream>
+#include <chrono>
+#include <thread>
 
 #include "utilities.h"
 
@@ -18,52 +21,50 @@
 
 using namespace std;
 
-const int N = 4;
+const int N = 3;
 
 const int ROWS = 256;
 const int COLUMNS = 256;
 
+const int NUMBER_OF_ITERATIONS = 100;
+
 int main() {
-	// 1 TASK (Fill)
-	cout << fixed << setprecision(13);
+	ofstream fout("report.txt");
 
 	double** A = new double*[ROWS];
 
 	for (int i = 0; i < ROWS; i++)
 		A[i] = new double[COLUMNS];
 
-	Fill(A, ROWS, COLUMNS, N);
-	
 	double* y = new double[COLUMNS];
-
-	Fill(y, COLUMNS, N);
 
 	double* b = new double[ROWS];
 
-	Multiply(A, ROWS, COLUMNS, y, COLUMNS, b);
+	double* x = new double[COLUMNS];
 
-	// 2 TASK (Condition number)
-	cout << "Condition number: " << CountConditionNumber(A, ROWS, COLUMNS) << endl;
+	double* difference = new double[COLUMNS];
 
-	// 3 TASK (Gauss)
-	double* x_gauss = new double[COLUMNS];
-	Gauss(A, ROWS, COLUMNS, b, x_gauss);
+	// TASK 2 
+	double min_condition_number = numeric_limits<double>::max(), max_condition_number = 0, 
+		average_condition_number = 0;
 
-	/*
-	cout << "Vector x_gauss: " << endl;
-	PrintVector(x_gauss, COLUMNS);
-	cout << endl << endl;
+	double average_find_inverse_time = 0;
 
-	cout << "Vector y: " << endl;
-	PrintVector(y, COLUMNS);
-	*/
+	double** A_inverse = new double*[ROWS];
 
-	double* difference_gauss = new double[COLUMNS];
+	for (int i = 0; i < ROWS; i++)
+		A_inverse[i] = new double[COLUMNS];
 
-	Subtract(y, x_gauss, COLUMNS, difference_gauss);
-	cout << "gauss max norm: " << MaxNorm(difference_gauss, COLUMNS) << endl;
+	// TASK 3
+	double min_norm_gauss = numeric_limits<double>::max(), max_norm_gauss = 0, average_norm_gauss = 0;
 
-	// 4 TASK (LUP)
+	double average_gauss_time = 0;
+
+	// TASK 4
+	double min_norm_lup = numeric_limits<double>::max(), max_norm_lup = 0, average_norm_lup = 0;
+
+	double average_build_lup_time = 0, average_solve_lup_time = 0;
+
 	double** lu = new double*[ROWS];
 
 	for (int i = 0; i < ROWS; i++)
@@ -71,133 +72,300 @@ int main() {
 
 	int* p = new int[ROWS];
 
-	BuildLUP(A, ROWS, COLUMNS, lu, p);
+	// TASK 5
+	double min_norm_cholesky = numeric_limits<double>::max(), max_norm_cholesky = 0, average_norm_cholesky = 0;
 
-	double* x_lup = new double[COLUMNS];
+	double average_cholesky_time = 0;
 
-	SolveLUP(lu, p, ROWS, COLUMNS, b, x_lup);
-
-	double* difference_lup = new double[COLUMNS];
-	
-	Subtract(y, x_lup, COLUMNS, difference_lup);
-	cout << "lup max norm: " << MaxNorm(difference_lup, COLUMNS) << endl;
-
-	// 5 TASK (CHOLESKY)
 	double** lt = new double*[ROWS];
 	double* d = new double[ROWS];
 
 	for (int i = 0; i < ROWS; i++)
 		lt[i] = new double[COLUMNS];
 
-	BuildCholesky(A, ROWS, COLUMNS, lt, d);
+	// TASK 6
+	double min_norm_relaxation = numeric_limits<double>::max(), max_norm_relaxation = 0, 
+		average_norm_relaxation = 0;
 
-	double* x_cholesky = new double[COLUMNS];
+	double average_relaxation_time = 0;
 
-	SolveCholesky(lt, d, ROWS, COLUMNS, b, x_cholesky);
+	// TASK 7
+	double min_norm_qr = numeric_limits<double>::max(), max_norm_qr = 0,
+		average_norm_qr = 0;
 
-	double* difference_cholesky = new double[COLUMNS];
+	double average_qr_time = 0;
 
-	Subtract(y, x_cholesky, COLUMNS, difference_cholesky);
-	cout << "cholesky max norm: " << MaxNorm(difference_cholesky, COLUMNS) << endl;
-
-	// TASK 6 (Relaxation)
-	double* x_relaxation = new double[COLUMNS];
-	SolveRelaxation(A, ROWS, COLUMNS, b, (N + 1) / 6.0, x_relaxation);
-
-	double* difference_relaxation = new double[COLUMNS];
-
-	Subtract(y, x_relaxation, COLUMNS, difference_relaxation);
-	cout << "relaxation max norm: " << MaxNorm(difference_relaxation, COLUMNS) << endl;
-	
-	// TASK 7 (QR)
 	double** qr = new double*[ROWS];
 	double* diag_r = new double[ROWS];
 
 	for (int i = 0; i < ROWS; i++)
 		qr[i] = new double[COLUMNS];
 
-	BuildQR(A, ROWS, COLUMNS, qr, diag_r);
+	// TASK 8
+	double min_norm_least_squares = numeric_limits<double>::max(), max_norm_least_squares = 0, 
+		average_norm_least_squares = 0;
 
-	double* x_qr = new double[COLUMNS];
-
-	SolveQR(qr, diag_r, ROWS, COLUMNS, b, x_qr);
-
-	double* difference_qr = new double[COLUMNS];
-
-	Subtract(y, x_qr, COLUMNS, difference_qr);
-	cout << "qr max norm: " << MaxNorm(difference_qr, COLUMNS) << endl;
-
-	
-	// TASK 8 (Least Squares)
-	double* x_least_squares = new double[20 * N];
-	SolveLeastSquares(A, ROWS, 20 * N, b, x_least_squares);
+	double average_least_squares_time = 0;
 
 	double* Ax = new double[ROWS];
-	Multiply(A, ROWS, 20 * N, x_least_squares, 20 * N, Ax);
 
 	double* discrepancy = new double[ROWS];
-	Subtract(Ax, b, ROWS, discrepancy);
-	 
-	cout << "euclidean norm for least squares method: " << EuclideanNorm(discrepancy, ROWS) << endl;
 
-	// TASK 9 (GMRES)
-	double* x_gmres = new double[COLUMNS];
-	SolveGMRES(A, ROWS, COLUMNS, b, x_gmres);
+	// TASK 9
+	double min_norm_gmres = numeric_limits<double>::max(), max_norm_gmres = 0, average_norm_gmres = 0;
 
-	double* difference_gmres = new double[COLUMNS];
+	double average_gmres_time = 0;
 
-	Subtract(y, x_gmres, COLUMNS, difference_gmres);
-	cout << "gmres max norm: " << MaxNorm(difference_gmres, COLUMNS) << endl;
+	// TASK 10
+	double min_norm_arnoldi = numeric_limits<double>::max(), max_norm_arnoldi = 0, average_norm_arnoldi = 0;
 
-	// TASK 10 (GMRES Arnoldi)
-	double* x_gmres_arnoldi = new double[COLUMNS];
-	SolveGMRESArnoldi(A, ROWS, COLUMNS, b, x_gmres_arnoldi);
+	double average_arnoldi_time = 0;
 
-	double* difference_gmres_arnoldi = new double[COLUMNS];
+	chrono::high_resolution_clock::time_point start, finish;
+	chrono::duration<double, std::milli> fp_ms;
+	for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
+		// TASK 1
+		Fill(A, ROWS, COLUMNS, N);
+		Fill(y, COLUMNS, N);
 
-	Subtract(y, x_gmres_arnoldi, COLUMNS, difference_gmres_arnoldi);
-	cout << "gmres arnoldi max norm: " << MaxNorm(difference_gmres_arnoldi, COLUMNS) << endl;
+		Multiply(A, ROWS, COLUMNS, y, COLUMNS, b);
 
-	delete[] difference_gmres_arnoldi;
-	delete[] x_gmres_arnoldi;
+		// TASK 2
+		double condition_number = CountConditionNumber(A, ROWS, COLUMNS);
+		
+		min_condition_number = min(min_condition_number, condition_number);
+		max_condition_number = max(max_condition_number, condition_number);
+		average_condition_number += condition_number / NUMBER_OF_ITERATIONS;
 
-	delete[] difference_gmres;
-	delete[] x_gmres;
+		start = chrono::high_resolution_clock::now();
+		GaussJordanInverse(A, ROWS, COLUMNS, A_inverse);
+		finish = chrono::high_resolution_clock::now();
 
+		fp_ms = finish - start;
+		average_find_inverse_time += fp_ms.count() / NUMBER_OF_ITERATIONS;
+
+		// TASK 3
+		start = chrono::high_resolution_clock::now();
+		SolveGauss(A, ROWS, COLUMNS, b, x);
+		finish = chrono::high_resolution_clock::now();
+
+		fp_ms = finish - start;
+		average_gauss_time += fp_ms.count() / NUMBER_OF_ITERATIONS;
+
+		Subtract(x, y, COLUMNS, difference);
+
+		double gauss_norm = MaxNorm(difference, COLUMNS);
+		min_norm_gauss = min(min_norm_gauss, gauss_norm);
+		max_norm_gauss = max(max_norm_gauss, gauss_norm);
+
+		average_norm_gauss += gauss_norm / NUMBER_OF_ITERATIONS;
+
+		// TASK 4
+		start = chrono::high_resolution_clock::now();
+		BuildLUP(A, ROWS, COLUMNS, lu, p);
+		finish = chrono::high_resolution_clock::now();
+
+		fp_ms = finish - start;
+		average_build_lup_time += fp_ms.count() / NUMBER_OF_ITERATIONS;
+
+		start = chrono::high_resolution_clock::now();
+		SolveLUP(lu, p, ROWS, COLUMNS, b, x);
+		finish = chrono::high_resolution_clock::now();
+
+		fp_ms = finish - start;
+		average_solve_lup_time += fp_ms.count() / NUMBER_OF_ITERATIONS;
+		
+		Subtract(x, y, COLUMNS, difference);
+
+		double lup_norm = MaxNorm(difference, COLUMNS);
+		min_norm_lup = min(min_norm_lup, lup_norm);
+		max_norm_lup = max(max_norm_lup, lup_norm);
+
+		average_norm_lup += lup_norm / NUMBER_OF_ITERATIONS;
+
+		// TASK 5
+		start = chrono::high_resolution_clock::now();
+		BuildCholesky(A, ROWS, COLUMNS, lt, d);
+		SolveCholesky(lt, d, ROWS, COLUMNS, b, x);
+		finish = chrono::high_resolution_clock::now();
+
+		fp_ms = finish - start;
+		average_cholesky_time += fp_ms.count() / NUMBER_OF_ITERATIONS;
+
+		Subtract(x, y, COLUMNS, difference);
+
+		double cholesky_norm = MaxNorm(difference, COLUMNS);
+		min_norm_cholesky = min(min_norm_cholesky, cholesky_norm);
+		max_norm_cholesky = max(max_norm_cholesky, cholesky_norm);
+
+		average_norm_cholesky += cholesky_norm / NUMBER_OF_ITERATIONS;
+
+		// TASK 6
+		start = chrono::high_resolution_clock::now();
+		SolveRelaxation(A, ROWS, COLUMNS, b, 0.8, x);
+		finish = chrono::high_resolution_clock::now();
+
+		fp_ms = finish - start;
+		average_relaxation_time += fp_ms.count() / NUMBER_OF_ITERATIONS;
+
+		Subtract(x, y, COLUMNS, difference);
+
+		double relaxation_norm = MaxNorm(difference, COLUMNS);
+		min_norm_relaxation = min(min_norm_relaxation, relaxation_norm);
+		max_norm_relaxation = max(max_norm_relaxation, relaxation_norm);
+
+		average_norm_relaxation += relaxation_norm / NUMBER_OF_ITERATIONS;
+		
+		// TASK 7	
+		start = chrono::high_resolution_clock::now();
+		BuildQR(A, ROWS, COLUMNS, qr, diag_r);
+		SolveQR(qr, diag_r, ROWS, COLUMNS, b, x);
+		finish = chrono::high_resolution_clock::now();
+
+		fp_ms = finish - start;
+		average_qr_time += fp_ms.count() / NUMBER_OF_ITERATIONS;
+
+		Subtract(x, y, COLUMNS, difference);
+
+		double qr_norm = MaxNorm(difference, COLUMNS);
+		min_norm_qr = min(min_norm_qr, qr_norm);
+		max_norm_qr = max(max_norm_qr, qr_norm);
+
+		average_norm_qr += qr_norm / NUMBER_OF_ITERATIONS;
+
+		// TASK 8
+		start = chrono::high_resolution_clock::now();
+		SolveLeastSquares(A, ROWS, 20 * N, b, x);
+		finish = chrono::high_resolution_clock::now();
+
+		fp_ms = finish - start;
+		average_least_squares_time += fp_ms.count() / NUMBER_OF_ITERATIONS;
+
+		Multiply(A, ROWS, 20 * N, x, 20 * N, Ax);
+		Subtract(Ax, b, ROWS, discrepancy);
+
+		double least_squares_norm = EuclideanNorm(discrepancy, ROWS);
+		min_norm_least_squares = min(min_norm_least_squares, least_squares_norm);
+		max_norm_least_squares = max(max_norm_least_squares, least_squares_norm);
+
+		average_norm_least_squares += least_squares_norm / NUMBER_OF_ITERATIONS;
+
+		// TASK 9
+		start = chrono::high_resolution_clock::now();
+		SolveGMRES(A, ROWS, COLUMNS, b, x);
+		finish = chrono::high_resolution_clock::now();
+
+		fp_ms = finish - start;
+		average_gmres_time += fp_ms.count() / NUMBER_OF_ITERATIONS;
+
+		Subtract(x, y, COLUMNS, difference);
+
+		double gmres_norm = MaxNorm(difference, ROWS);
+		min_norm_gmres = min(min_norm_gmres, gmres_norm);
+		max_norm_gmres = max(max_norm_gmres, gmres_norm);
+
+		average_norm_gmres += gmres_norm / NUMBER_OF_ITERATIONS;
+
+		// TASK 10
+		start = chrono::high_resolution_clock::now();
+		SolveGMRESArnoldi(A, ROWS, COLUMNS, b, x);
+		finish = chrono::high_resolution_clock::now();
+
+		fp_ms = finish - start;
+		average_arnoldi_time += fp_ms.count() / NUMBER_OF_ITERATIONS;
+
+		Subtract(x, y, COLUMNS, difference);
+
+		double arnoldi_norm = MaxNorm(difference, ROWS);
+		min_norm_arnoldi = min(min_norm_arnoldi, arnoldi_norm);
+		max_norm_arnoldi = max(max_norm_arnoldi, arnoldi_norm);
+
+		average_norm_arnoldi += arnoldi_norm / NUMBER_OF_ITERATIONS;
+	}
+	
+	// write results to file
+	fout << "TASK 2 (condition number and inverse matrix)" << endl;
+	fout << "min condition number: " << min_condition_number << endl;
+	fout << "max condition number: " << max_condition_number << endl;
+	fout << "average condition number: " << average_condition_number << endl << endl;
+
+	fout << "average time to find inverse matrix: " << average_find_inverse_time << endl << endl << endl;
+
+	fout << "TASK 3 (Gauss)" << endl;
+	fout << "min gauss ||x - y|| max norm: " << min_norm_gauss << endl;
+	fout << "max gauss ||x - y|| max norm: " << max_norm_gauss << endl;
+	fout << "average gauss ||x - y|| max norm: " << average_norm_gauss << endl << endl;
+
+	fout << "average time to solve gauss: " << average_gauss_time << endl << endl << endl;
+
+	fout << "TASK 4 (LUP)" << endl;
+	fout << "min lup ||x - y|| max norm: " << min_norm_lup << endl;
+	fout << "max lup ||x - y|| max norm: " << max_norm_lup << endl;
+	fout << "average lup ||x - y|| max norm: " << average_norm_lup << endl << endl;
+
+	fout << "average time to build lup: " << average_build_lup_time << endl;
+	fout << "average time to solve lup: " << average_solve_lup_time << endl << endl << endl;
+
+	fout << "TASK 5 (Cholesky)" << endl;
+	fout << "min cholesky ||x - y|| max norm: " << min_norm_cholesky << endl;
+	fout << "max cholesky ||x - y|| max norm: " << max_norm_cholesky << endl;
+	fout << "average cholesky ||x - y|| max norm: " << average_norm_cholesky << endl << endl;
+
+	fout << "average time to solve cholesky: " << average_cholesky_time << endl << endl << endl;
+
+	fout << "TASK 6 (Relaxation)" << endl;
+	fout << "min relaxation ||x - y|| max norm: " << min_norm_relaxation << endl;
+	fout << "max relaxation ||x - y|| max norm: " << max_norm_relaxation << endl;
+	fout << "average relaxation ||x - y|| max norm: " << average_norm_relaxation << endl << endl;
+
+	fout << "average time to solve relaxation: " << average_relaxation_time << endl << endl << endl;
+
+	fout << "TASK 7 (QR)" << endl;
+	fout << "min qr ||x - y|| max norm: " << min_norm_qr << endl;
+	fout << "max qr ||x - y|| max norm: " << max_norm_qr << endl;
+	fout << "average qr ||x - y|| max norm: " << average_norm_qr << endl << endl;
+
+	fout << "average time to solve qr: " << average_qr_time << endl << endl << endl;
+	
+	fout << "TASK 8 (Least squares)" << endl;
+	fout << "min least squares ||Ay - b|| euclide norm: " << min_norm_least_squares << endl;
+	fout << "max least squares ||Ay - b|| euclide norm: " << max_norm_least_squares << endl;
+	fout << "average least squares ||Ay - b|| euclide norm: " << average_norm_least_squares << endl << endl;
+
+	fout << "average time to solve least squares: " << average_least_squares_time << endl << endl << endl;
+
+	fout << "TASK 9 (GMRES)" << endl;
+	fout << "min GMRES ||x - y|| max norm: " << min_norm_gmres << endl;
+	fout << "max GMRES ||x - y|| euclide norm: " << max_norm_gmres << endl;
+	fout << "average GMRES ||x - y|| euclide norm: " << average_norm_gmres << endl << endl;
+
+	fout << "average time to solve GMRES: " << average_gmres_time << endl << endl << endl;
+
+	fout << "TASK 10 (GMRES Arnoldi)" << endl;
+	fout << "min GMRES Arnoldi ||x - y|| max norm: " << min_norm_arnoldi << endl;
+	fout << "max GMRES Arnoldi ||x - y|| euclide norm: " << max_norm_arnoldi << endl;
+	fout << "average GMRES Arnoldi ||x - y|| euclide norm: " << average_norm_arnoldi << endl << endl;
+
+	fout << "average time to solve GMRES Arnoldi: " << average_arnoldi_time << endl << endl << endl;
+
+	// TASK 8
 	delete[] discrepancy;
+
 	delete[] Ax;
 
-	delete[] difference_qr;
-	delete[] x_qr;
-
+	// TASK 7
 	delete[] diag_r;
 
 	for (int i = 0; i < ROWS; i++)
 		delete[] qr[i];
 
-	delete[] qr;
-
-	delete[] x_least_squares;
-
-	delete[] difference_relaxation;
-
-	delete[] x_relaxation;
-
-	delete[] difference_cholesky;
-
-	delete[] x_cholesky;
-
+	// TASK 5
 	delete[] d;
 
 	for (int i = 0; i < ROWS; i++)
 		delete[] lt[i];
 
-	delete[] lt;
-
-	delete[] difference_lup;
-
-	delete[] x_lup;
-
+	// TASK 4
 	delete[] p;
 
 	for (int i = 0; i < ROWS; i++)
@@ -205,17 +373,27 @@ int main() {
 
 	delete[] lu;
 
-	delete[] difference_gauss;
+	// TASK 1
 
-	delete[] x_gauss;
+	for (int i = 0; i < ROWS; i++)
+		delete[] A_inverse[i];
+
+	delete[] A_inverse;
+
+	delete[] difference;
+
+	delete[] x;
 
 	delete[] b;
+
 	delete[] y;
 
 	for (int i = 0; i < ROWS; i++)
 		delete[] A[i];
 
 	delete[] A;
+
+	fout.close();
 
 	system("pause");
 

@@ -66,10 +66,10 @@ void SolveGMRESArnoldi(double** m, int rows, int columns, double* v, double* x) 
 			H[i][k - 1] = 0;
 
 			for (int j = 0; j < rows; j++)
-				H[i][k - 1] += z[j] * Q[j][k - 1];
+				H[i][k - 1] += z[j] * Q[j][i];
 
 			for (int j = 0; j < rows; j++)
-				hq[j] = H[i][k - 1] * Q[j][k - 1];
+				hq[j] = H[i][k - 1] * Q[j][i];
 
 			Subtract(z, hq, rows, z);
 		}

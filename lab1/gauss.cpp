@@ -6,7 +6,7 @@
 
 using namespace std;
 
-void Gauss(double** m, int rows, int columns, double* v, double* x) {
+void SolveGauss(double** m, int rows, int columns, double* v, double* x) {
 	double** a = new double*[rows];
 
 	for (int i = 0; i < rows; i++) 

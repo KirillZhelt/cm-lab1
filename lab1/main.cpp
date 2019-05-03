@@ -131,6 +131,7 @@ int main() {
 		Multiply(A, ROWS, COLUMNS, y, COLUMNS, b);
 
 		// TASK 2
+		
 		double condition_number = CountConditionNumber(A, ROWS, COLUMNS);
 		
 		min_condition_number = min(min_condition_number, condition_number);
@@ -265,7 +266,7 @@ int main() {
 		max_norm_gmres = max(max_norm_gmres, gmres_norm);
 
 		average_norm_gmres += gmres_norm / NUMBER_OF_ITERATIONS;
-
+		
 		// TASK 10
 		start = chrono::high_resolution_clock::now();
 		SolveGMRESArnoldi(A, ROWS, COLUMNS, b, x);

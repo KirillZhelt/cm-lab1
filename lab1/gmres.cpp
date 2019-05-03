@@ -21,7 +21,7 @@ void SolveGMRES(double** m, int rows, int columns, double* v, double* x) {
 
 	int k = 1;
 	
-	while (true) {
+	while (k < 256) {
 		for (int i = 0; i < rows; i++) {
 			K[i][k] = 0;
 

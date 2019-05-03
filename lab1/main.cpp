@@ -285,6 +285,10 @@ int main() {
 	}
 	
 	// write results to file
+	fout << "N = " << N << endl;
+	fout << "ROWS = " << ROWS << " COLUMNS = " << COLUMNS << endl;
+	fout << "NUMBER OF ITERATIONS = " << NUMBER_OF_ITERATIONS << endl << endl << endl;
+
 	fout << "TASK 2 (condition number and inverse matrix)" << endl;
 	fout << "min condition number: " << min_condition_number << endl;
 	fout << "max condition number: " << max_condition_number << endl;

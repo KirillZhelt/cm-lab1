@@ -6,6 +6,7 @@
 
 using namespace std;
 
+
 void SolveGMRESArnoldi(double** m, int rows, int columns, double* v, double* x) {
 	double** Q = new double*[rows];
 
@@ -33,8 +34,8 @@ void SolveGMRESArnoldi(double** m, int rows, int columns, double* v, double* x) 
 	for (int i = 0; i < rows; i++)
 		Q[i][0] = v[i] / d[0]; // q1
 
-	while (true) {
-		// generate qk
+	while (k < 256) {
+		// generate new q and h
 		for (int i = 0; i < rows; i++) {
 			z[i] = 0;
 
@@ -63,16 +64,16 @@ void SolveGMRESArnoldi(double** m, int rows, int columns, double* v, double* x) 
 
 		SolveLeastSquares(H, k + 1, k, d, y);
 
-		Multiply(Q, rows, k, y, rows, x);
+		Multiply(H, k + 1, k, y, k + 1, difference);
+		Subtract(difference, d, k + 1, difference);
 
-		Multiply(m, rows, columns, x, columns, difference);
-		Subtract(difference, v, columns, difference);
-
-		if (EuclideanNorm(difference, columns) < EPS_GMRES_ARNOLDI)
+		if (EuclideanNorm(difference, k + 1) < EPS_GMRES_ARNOLDI)
 			break;
-
+		
 		k++;
 	}
+
+	Multiply(Q, rows, k, y, rows, x);
 
 	delete[] d;
 
@@ -94,6 +95,7 @@ void SolveGMRESArnoldi(double** m, int rows, int columns, double* v, double* x) 
 
 	delete[] Q;
 }
+
 
 /*
 void SolveGMRESArnoldi(double** m, int rows, int columns, double* v, double* x) {
@@ -126,7 +128,7 @@ void SolveGMRESArnoldi(double** m, int rows, int columns, double* v, double* x) 
 	for (int i = 0; i < rows; i++)
 		Q[i][0] = v[i] / b_norm; // q1
 
-	while (true) {
+	while (k < 256) {
 		for (int i = 0; i < rows; i++) {
 			AQ[i][k - 1] = 0;
 

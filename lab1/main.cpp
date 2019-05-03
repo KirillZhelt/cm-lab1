@@ -293,64 +293,64 @@ int main() {
 	fout << "max condition number: " << max_condition_number << endl;
 	fout << "average condition number: " << average_condition_number << endl << endl;
 
-	fout << "average time to find inverse matrix: " << average_find_inverse_time << endl << endl << endl;
+	fout << "average time to find inverse matrix: " << average_find_inverse_time << "ms" << endl << endl << endl;
 
 	fout << "TASK 3 (Gauss)" << endl;
 	fout << "min gauss ||x - y|| max norm: " << min_norm_gauss << endl;
 	fout << "max gauss ||x - y|| max norm: " << max_norm_gauss << endl;
 	fout << "average gauss ||x - y|| max norm: " << average_norm_gauss << endl << endl;
 
-	fout << "average time to solve gauss: " << average_gauss_time << endl << endl << endl;
+	fout << "average time to solve gauss: " << average_gauss_time << "ms" << endl << endl << endl;
 
 	fout << "TASK 4 (LUP)" << endl;
 	fout << "min lup ||x - y|| max norm: " << min_norm_lup << endl;
 	fout << "max lup ||x - y|| max norm: " << max_norm_lup << endl;
 	fout << "average lup ||x - y|| max norm: " << average_norm_lup << endl << endl;
 
-	fout << "average time to build lup: " << average_build_lup_time << endl;
-	fout << "average time to solve lup: " << average_solve_lup_time << endl << endl << endl;
+	fout << "average time to build lup: " << average_build_lup_time << "ms" << endl;
+	fout << "average time to solve lup: " << average_solve_lup_time << "ms" << endl << endl << endl;
 
 	fout << "TASK 5 (Cholesky)" << endl;
 	fout << "min cholesky ||x - y|| max norm: " << min_norm_cholesky << endl;
 	fout << "max cholesky ||x - y|| max norm: " << max_norm_cholesky << endl;
 	fout << "average cholesky ||x - y|| max norm: " << average_norm_cholesky << endl << endl;
 
-	fout << "average time to solve cholesky: " << average_cholesky_time << endl << endl << endl;
+	fout << "average time to solve cholesky: " << average_cholesky_time << "ms" << endl << endl << endl;
 
 	fout << "TASK 6 (Relaxation)" << endl;
 	fout << "min relaxation ||x - y|| max norm: " << min_norm_relaxation << endl;
 	fout << "max relaxation ||x - y|| max norm: " << max_norm_relaxation << endl;
 	fout << "average relaxation ||x - y|| max norm: " << average_norm_relaxation << endl << endl;
 
-	fout << "average time to solve relaxation: " << average_relaxation_time << endl << endl << endl;
+	fout << "average time to solve relaxation: " << average_relaxation_time << "ms" << endl << endl << endl;
 
 	fout << "TASK 7 (QR)" << endl;
 	fout << "min qr ||x - y|| max norm: " << min_norm_qr << endl;
 	fout << "max qr ||x - y|| max norm: " << max_norm_qr << endl;
 	fout << "average qr ||x - y|| max norm: " << average_norm_qr << endl << endl;
 
-	fout << "average time to solve qr: " << average_qr_time << endl << endl << endl;
+	fout << "average time to solve qr: " << average_qr_time << "ms" << endl << endl << endl;
 	
 	fout << "TASK 8 (Least squares)" << endl;
 	fout << "min least squares ||Ay - b|| euclide norm: " << min_norm_least_squares << endl;
 	fout << "max least squares ||Ay - b|| euclide norm: " << max_norm_least_squares << endl;
-	fout << "average least squares ||Ay - b|| euclide norm: " << average_norm_least_squares << endl << endl;
+	fout << "average least squares ||Ay - b|| euclide norm: " <<"ms" << average_norm_least_squares << endl << endl;
 
-	fout << "average time to solve least squares: " << average_least_squares_time << endl << endl << endl;
+	fout << "average time to solve least squares: " << average_least_squares_time << "ms" << endl << endl << endl;
 
 	fout << "TASK 9 (GMRES)" << endl;
 	fout << "min GMRES ||x - y|| max norm: " << min_norm_gmres << endl;
 	fout << "max GMRES ||x - y|| euclide norm: " << max_norm_gmres << endl;
 	fout << "average GMRES ||x - y|| euclide norm: " << average_norm_gmres << endl << endl;
 
-	fout << "average time to solve GMRES: " << average_gmres_time << endl << endl << endl;
+	fout << "average time to solve GMRES: " << average_gmres_time << "ms" << endl << endl << endl;
 
 	fout << "TASK 10 (GMRES Arnoldi)" << endl;
 	fout << "min GMRES Arnoldi ||x - y|| max norm: " << min_norm_arnoldi << endl;
 	fout << "max GMRES Arnoldi ||x - y|| euclide norm: " << max_norm_arnoldi << endl;
 	fout << "average GMRES Arnoldi ||x - y|| euclide norm: " << average_norm_arnoldi << endl << endl;
 
-	fout << "average time to solve GMRES Arnoldi: " << average_arnoldi_time << endl << endl << endl;
+	fout << "average time to solve GMRES Arnoldi: " << average_arnoldi_time << "ms" << endl << endl << endl;
 
 	// TASK 8
 	delete[] discrepancy;

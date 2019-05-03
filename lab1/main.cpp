@@ -4,7 +4,6 @@
 #include <iomanip>
 #include <fstream>
 #include <chrono>
-#include <thread>
 
 #include "utilities.h"
 

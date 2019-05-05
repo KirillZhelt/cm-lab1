@@ -13,7 +13,6 @@ void BuildLUP(double** m, int rows, int columns, double** lu, int* p) {
 		p[i] = i;
 	
 	for (int k = 0; k < rows - 1; k++) {
-		// выбор главного элемента по матрице
 		double max = lu[k][k];
 		int max_row = k;
 		for (int j = k + 1; j < rows; j++) {

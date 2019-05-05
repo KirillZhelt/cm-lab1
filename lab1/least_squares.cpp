@@ -1,6 +1,7 @@
 #include "utilities.h"
 #include "least_squares.h"
 #include "gauss.h"
+#include "cholesky.h"
 
 #include <iostream>
 
@@ -31,6 +32,24 @@ void SolveLeastSquares(double** m, int rows, int columns, double* v, double* x, 
 	}
 
 	SolveGauss(mtm, columns, columns, b, x);
+
+	/*
+	double** lt = new double*[columns];
+	for (int i = 0; i < columns; i++)
+		lt[i] = new double[columns];
+
+	double* d = new double[columns];
+
+	BuildCholesky(mtm, columns, columns, lt, d);
+	SolveCholesky(lt, d, columns, columns, b, x);
+
+	delete[] d;
+
+	for (int i = 0; i < columns; i++)
+		delete[] lt[i];
+
+	delete[] lt;
+	*/
 
 	delete[] b;
 

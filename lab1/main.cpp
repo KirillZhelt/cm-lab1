@@ -284,7 +284,11 @@ int main() {
 	}
 	
 	// write results to file
-	fout << "N = " << N << endl;
+	fout << "N = " << N << endl << endl;
+	fout << "EPS_RELAXATION = " << EPS_RELAXATION << endl;
+	fout << "EPS_GMRES = " << scientific << EPS_GMRES << endl;
+	fout.unsetf(ios_base::floatfield);
+	fout << "EPS_GMRES_ARNOLDI = " << EPS_GMRES_ARNOLDI << endl << endl;
 	fout << "ROWS = " << ROWS << " COLUMNS = " << COLUMNS << endl;
 	fout << "NUMBER OF ITERATIONS = " << NUMBER_OF_ITERATIONS << endl << endl << endl;
 
@@ -334,7 +338,7 @@ int main() {
 	fout << "TASK 8 (Least squares)" << endl;
 	fout << "min least squares ||Ay - b|| euclide norm: " << min_norm_least_squares << endl;
 	fout << "max least squares ||Ay - b|| euclide norm: " << max_norm_least_squares << endl;
-	fout << "average least squares ||Ay - b|| euclide norm: " <<"ms" << average_norm_least_squares << endl << endl;
+	fout << "average least squares ||Ay - b|| euclide norm: " << average_norm_least_squares << endl << endl;
 
 	fout << "average time to solve least squares: " << average_least_squares_time << "ms" << endl << endl << endl;
 

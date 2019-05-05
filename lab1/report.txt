@@ -9,75 +9,75 @@ NUMBER OF ITERATIONS = 100
 
 
 TASK 2 (condition number and inverse matrix)
-min condition number: 4.57995
-max condition number: 5.00601
-average condition number: 4.72438
+min condition number: 4.56002
+max condition number: 4.99199
+average condition number: 4.74734
 
-average time to find inverse matrix: 25.4192ms
+average time to find inverse matrix: 25.7411ms
 
 
 TASK 3 (Gauss)
-min gauss ||x - y|| max norm: 2.66454e-15
-max gauss ||x - y|| max norm: 7.99361e-15
-average gauss ||x - y|| max norm: 4.05453e-15
+min gauss ||x - y|| max norm: 2.44249e-15
+max gauss ||x - y|| max norm: 7.54952e-15
+average gauss ||x - y|| max norm: 3.87024e-15
 
-average time to solve gauss: 13.8607ms
+average time to solve gauss: 13.681ms
 
 
 TASK 4 (LUP)
-min lup ||x - y|| max norm: 2.10942e-15
-max lup ||x - y|| max norm: 4.44089e-15
-average lup ||x - y|| max norm: 2.94764e-15
+min lup ||x - y|| max norm: 1.9984e-15
+max lup ||x - y|| max norm: 4.66294e-15
+average lup ||x - y|| max norm: 2.89102e-15
 
-average time to build lup: 10.081ms
-average time to solve lup: 0.103435ms
+average time to build lup: 9.96881ms
+average time to solve lup: 0.103608ms
 
 
 TASK 5 (Cholesky)
-min cholesky ||x - y|| max norm: 1.88738e-15
-max cholesky ||x - y|| max norm: 4.66294e-15
-average cholesky ||x - y|| max norm: 2.98983e-15
+min cholesky ||x - y|| max norm: 1.9984e-15
+max cholesky ||x - y|| max norm: 4.88498e-15
+average cholesky ||x - y|| max norm: 2.90767e-15
 
-average time to solve cholesky: 6.12746ms
+average time to solve cholesky: 6.317ms
 
 
 TASK 6 (Relaxation)
-min relaxation ||x - y|| max norm: 2.66454e-15
-max relaxation ||x - y|| max norm: 9.32587e-15
-average relaxation ||x - y|| max norm: 5.62434e-15
+min relaxation ||x - y|| max norm: 2.22045e-15
+max relaxation ||x - y|| max norm: 9.99201e-15
+average relaxation ||x - y|| max norm: 5.78676e-15
 
-average time to solve relaxation: 3.23898ms
+average time to solve relaxation: 3.22543ms
 
 
 TASK 7 (QR)
-min qr ||x - y|| max norm: 5.10703e-15
-max qr ||x - y|| max norm: 9.4702e-14
-average qr ||x - y|| max norm: 1.03265e-14
+min qr ||x - y|| max norm: 5.66214e-15
+max qr ||x - y|| max norm: 1.72584e-13
+average qr ||x - y|| max norm: 1.08734e-14
 
-average time to solve qr: 16.2889ms
+average time to solve qr: 16.4037ms
 
 
 TASK 8 (Least squares)
-min least squares ||Ay - b|| euclide norm: 2694.33
-max least squares ||Ay - b|| euclide norm: 3090.83
-average least squares ||Ay - b|| euclide norm: 2906.1
+min least squares ||Ay - b|| euclide norm: 2629.56
+max least squares ||Ay - b|| euclide norm: 3077.49
+average least squares ||Ay - b|| euclide norm: 2894.78
 
-average time to solve least squares: 3.65537ms
+average time to solve least squares: 3.75414ms
 
 
 TASK 9 (GMRES)
-min GMRES ||x - y|| max norm: 1.4914e-07
-max GMRES ||x - y|| euclide norm: 1.85872e-06
-average GMRES ||x - y|| euclide norm: 7.82211e-07
+min GMRES ||x - y|| max norm: 1.4051e-07
+max GMRES ||x - y|| euclide norm: 2.17632e-06
+average GMRES ||x - y|| euclide norm: 8.26894e-07
 
-average time to solve GMRES: 2.19527ms
+average time to solve GMRES: 2.44301ms
 
 
 TASK 10 (GMRES Arnoldi)
 min GMRES Arnoldi ||x - y|| max norm: 2.88658e-15
-max GMRES Arnoldi ||x - y|| euclide norm: 7.54952e-15
-average GMRES Arnoldi ||x - y|| euclide norm: 4.34985e-15
+max GMRES Arnoldi ||x - y|| euclide norm: 6.66134e-15
+average GMRES Arnoldi ||x - y|| euclide norm: 4.40425e-15
 
-average time to solve GMRES Arnoldi: 2.51248ms
+average time to solve GMRES Arnoldi: 2.59123ms
 
 

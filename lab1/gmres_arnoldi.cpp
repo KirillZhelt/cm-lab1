@@ -26,7 +26,7 @@ void SolveGMRESArnoldi(double** m, int rows, int columns, double* v, double* x) 
 
 	double* hq = new double[rows];
 
-	double* d = new double[rows];
+	double* d = new double[rows] {};
 
 	d[0] = EuclideanNorm(v, rows);
 
@@ -65,6 +65,7 @@ void SolveGMRESArnoldi(double** m, int rows, int columns, double* v, double* x) 
 		SolveLeastSquares(H, k + 1, k, d, y);
 
 		Multiply(H, k + 1, k, y, k + 1, difference);
+
 		Subtract(difference, d, k + 1, difference);
 
 		if (EuclideanNorm(difference, k + 1) < EPS_GMRES_ARNOLDI)

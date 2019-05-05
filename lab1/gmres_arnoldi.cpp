@@ -56,7 +56,7 @@ void SolveGMRESArnoldi(double** m, int rows, int columns, double* v, double* x) 
 		}
 
 		H[k][k - 1] = EuclideanNorm(z, rows);
-		if (H[k][k - 1] == 0)
+		if (H[k][k - 1] < EPS_GMRES_ARNOLDI)
 			break;
 		
 		for (int j = 0; j < rows; j++)
